@@ -133,6 +133,23 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
       ==> default: have version '1608.02'. The latest is version '1609.01'. Run
       ==> default: `vagrant box update` to update.
       ==> default: Clearing any previously set forwarded ports...
+      ==> default: Preparing network interfaces based on configuration...
+      ==> default: Adapter 1: nat
+      ==> default: Forwarding ports...
+      default: 22 (guest) => 2222 (host) (adapter 1)
+     ==> default: Booting VM...
+     ==> default: Waiting for machine to boot. This may take a few minutes...
+         default: SSH address: 127.0.0.1:2222
+    	 default: SSH username: vagrant
+    	 default: SSH auth method: private key
+    	 default: Warning: Remote connection disconnect. Retrying...
+     ==> default: Machine booted and ready!
+	[default] GuestAdditions 4.3.24 running --- OK.
+     ==> default: Checking for guest additions in VM...
+     ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/ => /vagrant
+     ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/synced_folder/ => /synced_folder
+     ==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+     ==> default: flag to force provisioning. Provisioners marked to run always will still run.
       ```
    Vagrant can use rsync as a mechanism to sync a folder to the guest machine. This command forces a re-sync of any rsync synced folders. 
    
