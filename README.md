@@ -3,12 +3,12 @@ The project is a beginners guide to vagrant. The project will walk you through t
 Vagrant is a tool that allows you to easily create and configure lightweight, reproducible and portable virtual environments. Developers often use vagrant as a test development environment, which has the same configurations as the production server. Vagrant isolates dependencies on operating systems, tools and specific software versions, development team use vagrant to create their consistent development environment. Vagrant is much more than these.
 
 
-######Install vagarnt:
-1.	Go to the [vagrant downloads page](https://www.vagrantup.com/downloads.html) and get the appropriate installer for your platform, then install it.  
-2.	By default, VirtualBox is the default provider for Vagrant. Vagrant can also use VMware, AWS, or [any other provider](https://www.vagrantup.com/docs/providers/).  The project use virtualbox, so go to the [Virtualbox downloads page](https://www.virtualbox.org/wiki/Downloads) and get the appropriate version, then install it. 
+###Install vagarnt:
+1.Go to the [vagrant downloads page](https://www.vagrantup.com/downloads.html) and get the appropriate installer for your platform, then install it.  
+2.By default, VirtualBox is the default provider for Vagrant. Vagrant can also use VMware, AWS, or [any other provider](https://www.vagrantup.com/docs/providers/).  The project use virtualbox, so go to the [Virtualbox downloads page](https://www.virtualbox.org/wiki/Downloads) and get the appropriate version, then install it. 
 
 
-######Get started:
+###Get started:
 1.Some concepts before we start up vagrant: 
  - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In the project, we will use “centos/7”.
  - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define virtual machine you will use, how to configure and provision it. The vagrantfile is written using Ruby syntax and looks like:
