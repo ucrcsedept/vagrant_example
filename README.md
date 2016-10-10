@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
 	config.vm.network :private_network, ip: "192.168.0.101" 
 	config.vm.synced_folder "./", "/vagrant" end
 ```
+
 2. Up and running:
 - Create project and a vagrantfile
 ```
