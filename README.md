@@ -93,15 +93,47 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
     ```
 
 3. Features:
- - Log in:
+ - Vagrant commands:
  
    Vagrant runs the virtual machine without a UI. You can SSH into the machine:
    
     ```
     $vagrant ssh
     [vagrant@localhost ~]$ 
-    ```
+    ```   
+   Show the state of the machine:
    
+     ```
+     $vagrant status
+     Current machine states:
+     default                   running (virtualbox)
+     The VM is running. To stop this VM, you can run `vagrant halt` to
+     shut it down forcefully, or you can run `vagrant suspend` to simply
+     suspend the virtual machine. In either case, to restart it again,
+     simply run `vagrant up`.
+     ```
+   Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
+   
+      ```
+      $vagrant snapshot
+      ```   
+   Shut down the running machine:
+   
+      ```
+      $vagrant halt
+      ```
+   Stop the running machine and destroy all resources that were created:
+     
+      ```
+      $vagrant destroy
+      ```
+
+   
+      
+    
+    
+
+
 
 
 
