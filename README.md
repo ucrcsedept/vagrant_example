@@ -10,8 +10,8 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 
 ###Get started:
 1. Some concepts before you start up vagrant: 
- - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
- - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
+ * Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
+ * Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
  
    ```ruby
    Vagrant.configure("2") do |config|     
@@ -21,7 +21,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 	  config.vm.synced_folder "./", "/vagrant" end
    ```
 2. Up and running:
- - Create project and a vagrantfile:
+ * Create project and a vagrantfile:
    
    ```
    $mkdir vagrant_example
@@ -45,7 +45,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
     # boxes at https://atlas.hashicorp.com/search.
         config.vm.box = "centos/7"
      ```
- - About 1.8.5 patch:
+ * About 1.8.5 patch:
   
    Vagrant 1.8.5 has a bug that will not be fixed until Vagrant 1.8.6. You need to manually patch /opt/vagrant/embedded/gems/gems/vagrant-1.8.5/plugins/guests/linux/cap/public_key.rb as following:
    
@@ -57,7 +57,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
       fi
    ```  
    For further details, please go [here](https://github.com/mitchellh/vagrant/issues/7610#issuecomment-234019846)
- - Start up:
+ * Start up:
  
    You can start up the virtual machine using:
    
@@ -93,15 +93,14 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
     ```
 
 3. Features:
- - Vagrant commands:
- 
-   Vagrant runs the virtual machine without a UI. You can SSH into the machine:
+
+    + Vagrant runs the virtual machine without a UI. You can SSH into the machine:
    
-    ```
-    $vagrant ssh
-    [vagrant@localhost ~]$ 
-    ```   
-   Show the state of the machine:
+       ```
+       $vagrant ssh
+       [vagrant@localhost ~]$ 
+       ```   
+     Show the state of the machine:
    
      ```
      $vagrant status
@@ -112,11 +111,51 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
      suspend the virtual machine. In either case, to restart it again,
      simply run `vagrant up`.
      ```
-   Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
+     Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
    
       ```
       $vagrant snapshot
       ```   
+   Synced folders enable Vagrant to sync a folder on the host machine to the guest machine. Synced folders are configured within your Vagrantfile using the config.vm.synced_folder method.
+   
+      ```ruby
+      Vagrant.configure("2") do |config|
+        config.vm.box = "centos/7"
+        config.vm.synced_folder "./synced_folder", "/synced_folder", type: "rsync"
+      ```
+   Synced folders are automatically setup during vagrant up and vagrant reload:
+   
+      ```
+      $vagrant reload
+      ==> default: Attempting graceful shutdown of VM...
+      ==> default: Checking if box 'centos/7' is up to date...
+      ==> default: A newer version of the box 'centos/7' is available! You currently
+      ==> default: have version '1608.02'. The latest is version '1609.01'. Run
+      ==> default: `vagrant box update` to update.
+      ==> default: Clearing any previously set forwarded ports...
+      ==> default: Preparing network interfaces based on configuration...
+      ==> default: Adapter 1: nat
+      ==> default: Forwarding ports...
+      default: 22 (guest) => 2222 (host) (adapter 1)
+     ==> default: Booting VM...
+     ==> default: Waiting for machine to boot. This may take a few minutes...
+         default: SSH address: 127.0.0.1:2222
+    	 default: SSH username: vagrant
+    	 default: SSH auth method: private key
+    	 default: Warning: Remote connection disconnect. Retrying...
+     ==> default: Machine booted and ready!
+	[default] GuestAdditions 4.3.24 running --- OK.
+     ==> default: Checking for guest additions in VM...
+     ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/ => /vagrant
+     ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/synced_folder/ => /synced_folder
+     ==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+     ==> default: flag to force provisioning. Provisioners marked to run always will still run.
+      ```
+   Vagrant can use rsync as a mechanism to sync a folder to the guest machine. This command forces a re-sync of any rsync synced folders. 
+   
+      ```
+      $vagrant rsync
+      ```
    Shut down the running machine:
    
       ```
