@@ -13,11 +13,11 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
   - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
   - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
   ```ruby
-Vagrant.configure("2") do |config|     
-	config.vm.hostname= "test"
- 	config.vm.box = "centos/7"     
-	config.vm.network :private_network, ip: "192.168.0.101" 
-	config.vm.synced_folder "./", "/vagrant" end
+   Vagrant.configure("2") do |config|     
+	  config.vm.hostname= "test"
+ 	  config.vm.box = "centos/7"     
+	  config.vm.network :private_network, ip: "192.168.0.101" 
+	  config.vm.synced_folder "./", "/vagrant" end
   ```
 2. Up and running:
   - Create project and a vagrantfile:
