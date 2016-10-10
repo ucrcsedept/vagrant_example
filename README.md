@@ -10,8 +10,8 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 
 ###Get started:
 1. Some concepts before we start up vagrant: 
- - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In the project, we will use “centos/7”.
- - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define virtual machine you will use, how to configure and provision it. The vagrantfile is written using Ruby syntax and looks like:
+  - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In the project, we will use “centos/7”.
+  - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define virtual machine you will use, how to configure and provision it. The vagrantfile is written using Ruby syntax and looks like:
   ```ruby
 Vagrant.configure("2") do |config|     
 	config.vm.hostname= "test"
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
 	config.vm.synced_folder "./", "/vagrant" end
   ```
 2. Up and running:
- - Create project and a vagrantfile
+  - Create project and a vagrantfile:
   ```
 $mkdir vagrant_example
 $cd vagrant_example
@@ -43,10 +43,10 @@ $vagrant init centos/7
 	  # boxes at https://atlas.hashicorp.com/search.
 	  config.vm.box = "centos/7"
   ```
- - about 1.8.5 patch here:
- - start up
+  - about 1.8.5 patch here: 
+  - start up:
   You will have a fully running virtual machine in VirtualBox running centos/7. you can start it up using:
-```
+  ```
 $vagrant up
-```
+  ```
 
