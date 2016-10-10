@@ -100,7 +100,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
        $vagrant ssh
        [vagrant@localhost ~]$ 
        ```   
-     Show the state of the machine:
+    - Show the state of the machine:
    
      ```
      $vagrant status
@@ -111,19 +111,23 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
      suspend the virtual machine. In either case, to restart it again,
      simply run `vagrant up`.
      ```
-     Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
+    - Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
    
       ```
       $vagrant snapshot
       ```   
-   Synced folders enable Vagrant to sync a folder on the host machine to the guest machine. Synced folders are configured within your Vagrantfile using the config.vm.synced_folder method.
+    - Synced folders enable Vagrant to sync a folder on the host machine to the guest machine. Synced folders are configured within your Vagrantfile using the config.vm.synced_folder method.
    
       ```ruby
       Vagrant.configure("2") do |config|
         config.vm.box = "centos/7"
+	# Share an additional folder to the guest VM. The first argument is
+        # the path on the host to the actual folder. The second argument is
+        # the path on the guest to mount the folder. And the optional third
+        # argument is a set of non-required options.
         config.vm.synced_folder "./synced_folder", "/synced_folder", type: "rsync"
       ```
-   Synced folders are automatically setup during vagrant up and vagrant reload:
+   - Synced folders are automatically setup during vagrant up and vagrant reload:
    
       ```
       $vagrant reload
@@ -151,17 +155,64 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
      ==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
      ==> default: flag to force provisioning. Provisioners marked to run always will still run.
       ```
-   Vagrant can use rsync as a mechanism to sync a folder to the guest machine. This command forces a re-sync of any rsync synced folders. 
+   - Vagrant can use rsync as a mechanism to sync a folder to the guest machine. This command forces a re-sync of any rsync synced folders. We create a test file in the host machine and rsync to the guest machine.
    
       ```
-      $vagrant rsync
+      $ cd synced_folder/
+      $ touch test
+      $ vagrant rsync
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/ => /vagrant
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/synced_folder/ => /synced_folder
+      $ vagrant ssh
+      $ cd /synced_folder/
+      [vagrant@localhost synced_folder]$ ls
+      test
       ```
-   Shut down the running machine:
+   - All networks are configured within your Vagrantfile using the config.vm.network method call. You can access the service on port(80) of the guest machine via the port(8080) of the host machine.
+   
+      ```ruby
+ 	 Vagrant.configure("2") do |config|
+      	   config.vm.box = "centos/7"
+	   config.vm.synced_folder "./synced_folder", "/synced_folder", type: "rsync"
+  	   # Create a forwarded port mapping which allows access to a specific port
+  	   # within the machine from a port on the host machine. In the example below,
+  	   # accessing "localhost:8080" will access port 80 on the guest machine.
+  	   config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+      ```
+   - Provisioners in Vagrant allow you to automatically install software, alter configurations, and more on the machine as part of the vagrant up process. All provisioner are configured within your Vagrantfile using the config.vm.provision method call. The provisioner can use file, shell script, ansible and more.
+   
+      ```ruby
+      Vagrant.configure("2") do |config|
+      	   config.vm.box = "centos/7"
+	   config.vm.synced_folder "./synced_folder", "/synced_folder", type: "rsync"
+	   config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+	   config.vm.provision :shell, path: "bootstrap.sh"      
+      ```
+      Vagrant will use the shell provisioner to setup the machine, with the bootstrap.sh file, which will install Apache.
+      
+      ```
+      bootstrap.sh
+      #!/usr/bin/env bash
+      yum -y install httpd
+      ```	
+      After vagrant starts up or you can run "vagrant reload --provision" instead, you can start the httpd service and check the status:
+      
+      ```
+      $sudo systemctl start httpd.service
+      $systemctl is-active httpd.service
+	active
+      ```    
+   - Shut down the running machine:
    
       ```
-      $vagrant halt
+      $vagrant halt      
+      ==> default: Attempting graceful shutdown of VM...
+      $vagrant status
+      Current machine states:
+	default                   poweroff (virtualbox)
+      The VM is powered off. To restart the VM, simply run `vagrant up`
       ```
-   Stop the running machine and destroy all resources that were created:
+   - Stop the running machine and destroy all resources that were created:
      
       ```
       $vagrant destroy
