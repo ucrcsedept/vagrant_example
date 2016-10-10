@@ -10,9 +10,9 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 
 ###Get started:
 1. Some concepts before we start up vagrant: 
-  - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
-  - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
-  ```ruby
+ - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
+ - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
+ ```ruby
    Vagrant.configure("2") do |config|     
 	  config.vm.hostname= "test"
  	  config.vm.box = "centos/7"     
@@ -20,14 +20,14 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 	  config.vm.synced_folder "./", "/vagrant" end
   ```
 2. Up and running:
-  - Create project and a vagrantfile:
-  ```
+ - Create project and a vagrantfile:
+ ```
 $mkdir vagrant_example
 $cd vagrant_example
 $vagrant init centos/7
-  ```
-  Now a vagrantfile is created in the current directory. You will have a virtual machine running CentOS/7 inside VirtualBox. The vagrantfile looks like:
-  ```ruby
+ ```
+   Now a vagrantfile is created in the current directory. You will have a virtual machine running CentOS/7 inside VirtualBox. The vagrantfile looks like:
+ ```ruby
 	# -*- mode: ruby -*-
 	# vi: set ft=ruby :
 	# All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -43,20 +43,21 @@ $vagrant init centos/7
 	  # boxes at https://atlas.hashicorp.com/search.
 	  config.vm.box = "centos/7"
   ```
-  - About 1.8.5 patch:
+ - About 1.8.5 patch:
   
-    Vagrant 1.8.5 has a bug that will not be fixed until Vagrant 1.8.6. You need to manually patch /opt/vagrant/embedded/gems/gems/vagrant-1.8.5/plugins/guests/linux/cap/public_key.rb as following:
-    ```
+  Vagrant 1.8.5 has a bug that will not be fixed until Vagrant 1.8.6. You need to manually patch /opt/vagrant/embedded/gems/gems/vagrant-1.8.5/plugins/guests/linux/cap/public_key.rb as following:
+ ```
      if test -f ~/.ssh/authorized_keys; then
                grep -v -x -f '#{remote_path}' ~/.ssh/authorized_keys > ~/.ssh/authorized_keys.tmp
                mv ~/.ssh/authorized_keys.tmp ~/.ssh/authorized_keys
                chmod 0600 ~/.ssh/authorized_keys
      fi
-    ```
+ ```
     
-    For further details, please go [here](https://github.com/mitchellh/vagrant/issues/7610#issuecomment-234019846)
-  
-  - Start up:
+   For further details, please go [here](https://github.com/mitchellh/vagrant/issues/7610#issuecomment-234019846)
+
+
+ - Start up:
    
   ```
 $vagrant up
