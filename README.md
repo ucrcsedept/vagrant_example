@@ -1,17 +1,17 @@
 # vagrant_example
-The project is a beginners guide to vagrant. The project will walk you through the vagrant and show you the major features it affords with some examples.
-Vagrant is a tool that allows you to easily create and configure lightweight, reproducible and portable virtual environments. Developers often use vagrant as a test development environment, which has the same configurations as the production server. Vagrant isolates dependencies on operating systems, tools and specific software versions, development team use vagrant to create their consistent development environment. Vagrant is much more than these.
+The project is a beginner's guide to vagrant. The project will walk you through the vagrant and show you the major features it offers with some examples.
+Vagrant is a tool that allows you to easily create and configure lightweight, reproducible and portable virtual environments. As a developer, you can use vagrant to create a virtual environment for develepment and testing, which is completely isolated from the host execution environment including operating system, runtime libaries, configurations, etc. Using vagrant, multiple developers in a development team can easily make sure that their development and testing environments are consistent. When the software product is ready, this virtual environment can then be easily deployed on the production server. Certainly, vagrant is much more than these.
 
 
 ###Install vagrant:
-1. Go to the [vagrant downloads page](https://www.vagrantup.com/downloads.html) and get the appropriate installer for your platform, then install it.  
-2. By default, VirtualBox is the default provider for Vagrant. Vagrant can also use VMware, AWS, or [any other provider](https://www.vagrantup.com/docs/providers/).  The project use virtualbox, so go to the [Virtualbox downloads page](https://www.virtualbox.org/wiki/Downloads) and get the appropriate version, then install it. 
+1. Go to the [vagrant downloads page](https://www.vagrantup.com/downloads.html) and get the installer for your platform, then install it.  
+2. VirtualBox is the default provider for Vagrant. Vagrant can also use VMware, AWS, or [any other provider](https://www.vagrantup.com/docs/providers/).  This project uses VirtualBox, so go to the [Virtualbox downloads page](https://www.virtualbox.org/wiki/Downloads) and get an appropriate version for your platform, then install it. 
 
 
 ###Get started:
 1. Some concepts before we start up vagrant: 
-  - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In the project, we will use CentOS/7.
-  - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define virtual machine you will use, how to configure and provision it. The vagrantfile is written using Ruby syntax and looks like:
+  - Boxes: Boxes are vagrant packages running a specific operating system. These packages can be imported on any machine that runs vagrant.  In this project, we will use CentOS/7.
+  - Vagrantfile: vagrantfile is a primary configuration file of vagrant. It is used to define what virtual machine you will use, and how to configure and provision it. The vagrantfile is written using Ruby syntax. It looks like:
   ```ruby
 Vagrant.configure("2") do |config|     
 	config.vm.hostname= "test"
@@ -26,7 +26,7 @@ $mkdir vagrant_example
 $cd vagrant_example
 $vagrant init centos/7
   ```
-  Now a vagrantfile is created in current directory. You will have a fully running virtual machine in VirtualBox running CentOS/7.The vagrantfile looks like:
+  Now a vagrantfile is created in the current directory. You will have a virtual machine running CentOS/7 inside VirtualBox. The vagrantfile looks like:
   ```ruby
 	# -*- mode: ruby -*-
 	# vi: set ft=ruby :
