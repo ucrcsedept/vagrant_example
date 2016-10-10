@@ -26,7 +26,7 @@ $mkdir vagrant_example
 $cd vagrant_example
 $vagrant init centos/7
   ```
-  Now a vagrantfile is created in current directory. The vagrantfile looks like:
+  Now a vagrantfile is created in current directory. You will have a fully running virtual machine in VirtualBox running centos/7.The vagrantfile looks like:
   ```ruby
 	# -*- mode: ruby -*-
 	# vi: set ft=ruby :
@@ -43,9 +43,9 @@ $vagrant init centos/7
 	  # boxes at https://atlas.hashicorp.com/search.
 	  config.vm.box = "centos/7"
   ```
-  - about 1.8.5 patch here: 
-  - start up:
-  You will have a fully running virtual machine in VirtualBox running centos/7. you can start it up using:
+  - About 1.8.5 patch here:  
+  - Start up:
+   
   ```
 $vagrant up
   ```
