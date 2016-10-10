@@ -43,7 +43,19 @@ $vagrant init centos/7
 	  # boxes at https://atlas.hashicorp.com/search.
 	  config.vm.box = "centos/7"
   ```
-  - About 1.8.5 patch here:  
+  - About 1.8.5 patch:
+  
+    Vagrant 1.8.5 has a bug that will not be fixed until Vagrant 1.8.6. You need to manually patch /opt/vagrant/embedded/gems/gems/vagrant-1.8.5/plugins/guests/linux/cap/public_key.rb as following:
+    ```
+     if test -f ~/.ssh/authorized_keys; then
+               grep -v -x -f '#{remote_path}' ~/.ssh/authorized_keys > ~/.ssh/authorized_keys.tmp
+               mv ~/.ssh/authorized_keys.tmp ~/.ssh/authorized_keys
+               chmod 0600 ~/.ssh/authorized_keys
+     fi
+    ```
+    
+    For further details, please go [here](https://github.com/mitchellh/vagrant/issues/7610#issuecomment-234019846)
+  
   - Start up:
    
   ```
