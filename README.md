@@ -28,7 +28,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
    $cd vagrant_example
    $vagrant init centos/7
    ```
-   Now a vagrantfile is created in the current directory. You will have a virtual machine running CentOS/7 inside VirtualBox. The vagrantfile looks like:   
+   Now a vagrantfile is created in the current directory. You will have a virtual machine running CentOS/7 inside VirtualBox. The vagrantfile looks like:
    
     ```ruby
     	# -*- mode: ruby -*-
@@ -45,7 +45,7 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 	  # Every Vagrant development environment requires a box. You can search for
 	  # boxes at https://atlas.hashicorp.com/search.
 	  config.vm.box = "centos/7"
-     ```
+    ```
  - About 1.8.5 patch:
   
    Vagrant 1.8.5 has a bug that will not be fixed until Vagrant 1.8.6. You need to manually patch /opt/vagrant/embedded/gems/gems/vagrant-1.8.5/plugins/guests/linux/cap/public_key.rb as following:
