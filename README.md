@@ -92,6 +92,16 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
 	==> default: Machine booted and ready!
     ```
 
-3. 
+3. Features:
+ - Log in:
+ 
+   Vagrant runs the virtual machine without a UI. You can SSH into the machine:
+   
+    ```
+    $vagrant ssh
+    [vagrant@localhost ~]$ 
+    ```
+   
+
 
 
