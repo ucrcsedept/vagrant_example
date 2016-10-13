@@ -245,7 +245,14 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
       Vagrant will use the shell provisioner to setup the machine, with the bootstrap.sh file, which will install Apache.
       
       ```
-      bootstrap.sh
+      ==> default: Checking for guest additions in VM...
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/ => /vagrant
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/synced_folder/ => /synced_folder
+      ==> default: Running provisioner: shell...
+          default: Running: /var/folders/m6/xrjv0s1d4lvdj6f3wnswrqhc0000gp/T/vagrant-shell20161013-54351-1m062b1.sh
+      ........
+      
+      # bootstrap.sh file as following:
       #!/usr/bin/env bash
       yum -y install httpd
       ```	
@@ -269,7 +276,10 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
    - Stop the running machine and destroy all resources that were created:
      
       ```
-      $vagrant destroy
+      $vagrant destroy     
+      default: Are you sure you want to destroy the 'default' VM? [y/N] y
+	==> default: Forcing shutdown of VM...
+	==> default: Destroying VM and associated drives...
       ```
 
    
