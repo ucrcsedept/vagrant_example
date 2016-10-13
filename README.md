@@ -111,10 +111,64 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
      suspend the virtual machine. In either case, to restart it again,
      simply run `vagrant up`.
      ```
-    - Record a point-in-time state of a guest machine. You can then quickly restore to this environment:
+    - Record a point-in-time state of a guest machine. You can then quickly restore to this environment. The command has some subcommands: save, restore, list, delete and more.
    
       ```
-      $vagrant snapshot
+      # current state of the guest machine:
+      $[vagrant@localhost ~]$ ls -l
+	total 0
+	-rw-rw-r--. 1 vagrant vagrant 0 Oct 13 15:59 snapshotfile
+      
+      # save current state: 
+      $ vagrant snapshot save test_snapshot
+	==> default: Snapshotting the machine as 'test_snapshot'...
+	==> default: Snapshot saved! You can restore the snapshot at any time by
+	==> default: using `vagrant snapshot restore`. You can delete it using
+	==> default: `vagrant snapshot delete`
+      
+      # make some changes in the guest machine:
+      [vagrant@localhost ~]$ rm snapshotfile 
+      [vagrant@localhost ~]$ ls -l
+      total 0
+
+      #restore the snapshot:
+      $ vagrant snapshot restore test_snapshot
+	==> default: Restoring the snapshot 'test_snapshot'...
+	==> default: Checking if box 'centos/7' is up to date...
+	==> default: A newer version of the box 'centos/7' is available! You currently
+	==> default: have version '1608.02'. The latest is version '1609.01'. Run
+	==> default: `vagrant box update` to update.
+	==> default: Resuming suspended VM...
+	==> default: Booting VM...
+	==> default: Waiting for machine to boot. This may take a few minutes...
+        default: SSH address: 127.0.0.1:2222
+        default: SSH username: vagrant
+        default: SSH auth method: private key
+        default: Warning: Connection refused. Retrying...
+	==> default: Machine booted and ready!
+	==> default: Running provisioner: shell...
+        default: Running: /var/folders/m6/xrjv0s1d4lvdj6f3wnswrqhc0000gp/T/vagrant-shell20161013-45182-bg5c81.sh
+	==> default: Loaded plugins: fastestmirror
+	==> default: Loading mirror speeds from cached hostfile
+	==> default:  * base: ftpmirror.your.org
+	==> default:  * extras: lug.mtu.edu
+	==> default:  * updates: repos.dfw.quadranet.com
+	==> default: Package httpd-2.4.6-40.el7.centos.4.x86_64 already installed and latest version
+	==> default: Nothing to do
+      $ vagrant ssh
+      [vagrant@localhost ~]$ ls -l
+       total 0
+      -rw-rw-r--. 1 vagrant vagrant 0 Oct 13 15:59 snapshotfile
+      
+      #list all the snapshots taken:
+      $ vagrant snapshot list
+	test_snapshot
+
+      #delete a snapshot:
+      $vagrant snapshot delete test_snapshot
+      ==> default: Deleting the snapshot 'test_snapshot'...
+      ==> default: Snapshot deleted!
+      
       ```   
     - Synced folders enable Vagrant to sync a folder on the host machine to the guest machine. Synced folders are configured within your Vagrantfile using the config.vm.synced_folder method.
    
@@ -191,7 +245,14 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
       Vagrant will use the shell provisioner to setup the machine, with the bootstrap.sh file, which will install Apache.
       
       ```
-      bootstrap.sh
+      ==> default: Checking for guest additions in VM...
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/ => /vagrant
+      ==> default: Rsyncing folder: /Users/qcheng/vagrant/fork/vagrant_example/synced_folder/ => /synced_folder
+      ==> default: Running provisioner: shell...
+          default: Running: /var/folders/m6/xrjv0s1d4lvdj6f3wnswrqhc0000gp/T/vagrant-shell20161013-54351-1m062b1.sh
+      ........
+      
+      # bootstrap.sh file as following:
       #!/usr/bin/env bash
       yum -y install httpd
       ```	
@@ -215,7 +276,10 @@ Vagrant is a tool that allows you to easily create and configure lightweight, re
    - Stop the running machine and destroy all resources that were created:
      
       ```
-      $vagrant destroy
+      $vagrant destroy     
+      default: Are you sure you want to destroy the 'default' VM? [y/N] y
+	==> default: Forcing shutdown of VM...
+	==> default: Destroying VM and associated drives...
       ```
 
    
